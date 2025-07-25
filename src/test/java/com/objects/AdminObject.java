@@ -79,6 +79,37 @@ public class AdminObject extends DashboardObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
     }
 
+    //elements avilabilty
+    public boolean adminElementAvailable(){
+        try{
+            boolean userName = isElementAvailable(wait, username);
+            boolean employeeName = isElementAvailable(wait,employeename);
+            boolean userRole = isElementAvailable(wait,userrole);
+            boolean Status = isElementAvailable(wait, status);
+            boolean Reset = isElementAvailable(wait, reset);
+            boolean Search = isElementAvailable(wait, search);
+            boolean Add = isElementAvailable(wait, add);
+            boolean Delete = isElementAvailable(wait, delete);
+            boolean Edit = isElementAvailable(wait, edit);
+
+            return userName && employeeName && userRole && Status && Reset && Search
+                    && Add && Delete && Edit;
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+    }
+
+    private boolean isElementAvailable(WebDriverWait wait, By locator){
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+    }
+
 
 
 }
