@@ -50,7 +50,7 @@ public class DashboardObject {
 
     //clicks
     public void clickAdminLable() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(admin));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(admin)).click();
     }
 
     public void clickPIMLable() {
