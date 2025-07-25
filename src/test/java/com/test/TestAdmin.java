@@ -23,6 +23,12 @@ public class TestAdmin {
     private String username = "Admin";
     private String password = "admin123";
 
+    //filter
+    private String Username ="115152";
+    private String UserRole ="Admin";
+    private String EmployeeName = "Sobor Ali";
+    private String Staus = "Disabled";
+
     LoginObject login;
     AdminObject admin;
 
@@ -49,8 +55,11 @@ public class TestAdmin {
 
     //Search
     @Test(priority =2)
-    public void testPositiveFilterResults(){
-        admin.setValues();
+    public void testPositiveFilterResults() throws InterruptedException{
+        admin.clickAdminLBL();
+        Thread.sleep(10000);
+        admin.setValues(Username,EmployeeName);
+        Thread.sleep(20000);
     }
 
 

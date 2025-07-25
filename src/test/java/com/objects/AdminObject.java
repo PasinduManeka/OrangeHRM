@@ -40,7 +40,7 @@ public class AdminObject extends DashboardObject{
 
     private void initElements(){
         username = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/input[1]");
-        userrole = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/i[1]");
+        userrole = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]");
         employeename = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]/input[1]");
         status = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[4]/div[1]/div[2]/div[1]/div[1]/div[2]/i[1]");
         reset = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/form[1]/div[2]/button[1]");
@@ -56,14 +56,6 @@ public class AdminObject extends DashboardObject{
     public void clickAdminLBL(){
         clickAdminLable();
     }
-
-//    public void clickUserRole(){
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
-//    }
-
-//    public void clickStatus(){
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
-//    }
 
     public void clickReset(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(reset)).click();
@@ -85,12 +77,20 @@ public class AdminObject extends DashboardObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(edit)).click();
     }
 
+    //select the dropdown menu elements
+    public void clickUserRole(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-option']//span[text()='Admin']"))).click();
+    }
+
+    public void clickStatus(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
+    }
+
     //setValues
-    public void setValues(String userName, String employeeName, String userRole, String Status){
+    public void setValues(String userName, String employeeName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).sendKeys(userRole);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).sendKeys(Status);
     }
 
     //elements avilabilty
