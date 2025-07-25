@@ -2,8 +2,13 @@ package com.objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdminObject extends DashboardObject{
 
@@ -19,6 +24,11 @@ public class AdminObject extends DashboardObject{
     By add;
     By delete;
     By edit;
+
+    //table elements
+    By tableRows;
+    By cellInRow;
+
     
     public AdminObject(WebDriver driver, WebDriverWait wait){
         super(driver,wait);
@@ -38,6 +48,8 @@ public class AdminObject extends DashboardObject{
         add = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/button[1]");
         delete = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[1]");
         edit = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[2]");
+        tableRows = By.cssSelector("div.oxd-table-body > div.oxd-table-row");
+        cellInRow = By.cssSelector("div.oxd-table-cell");
     }
 
     //clicks
@@ -108,6 +120,24 @@ public class AdminObject extends DashboardObject{
             System.out.println("Error: "+e);
             return false;
         }
+    }
+
+    //search
+    public List<WebElement> getTableRows(){
+      return driver.findElements(tableRows);
+    }
+
+    public List<String> getRowData(WebElement row){
+        List<WebElement> cells = row.findElements(cellInRow);
+        return cells.stream().map(e-> e.getText().trim()).collect(Collectors.toList());
+    }
+
+    public List<List<String>> getAllTable(){
+        List<List<String>> tableData = new ArrayList<>();
+        for(WebElement row:getTableRows()){
+            tableData.add(getRowData(row));
+        }
+        return tableData;
     }
 
     //Add form
