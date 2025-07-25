@@ -87,6 +87,22 @@ public class AdminObject extends DashboardObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
     }
 
+    //direct to admin page
+    public boolean adminUserOpen(){
+        boolean uiDirect = false;
+        String expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers";
+
+        try{
+            String currentURL = driver.getCurrentUrl();
+            uiDirect=expectedURL.equals(currentURL);
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+            uiDirect = false;
+        }
+        return uiDirect;
+
+    }
+
     //setValues
     public void setValues(String userName, String employeeName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);

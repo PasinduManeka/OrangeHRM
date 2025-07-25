@@ -45,8 +45,14 @@ public class TestAdmin {
     public void loginToAdmin()throws InterruptedException{
         login.login(username,password);
     }
-
     @Test(priority = 1)
+    public void testDirectPage()throws InterruptedException{
+        admin.clickAdminLBL();
+        Thread.sleep(10000);
+        Assert.assertTrue(admin.adminUserOpen(),"Direct to the wrong page.");
+    }
+
+    @Test(priority = 2)
     public void checkAdminElelementAvailable()throws InterruptedException{
         admin.clickAdminLable();
         Thread.sleep(10000);
@@ -54,7 +60,7 @@ public class TestAdmin {
     }
 
     //Search
-    @Test(priority =2)
+    @Test(priority =3)
     public void testPositiveFilterResults() throws InterruptedException{
         admin.clickAdminLBL();
         Thread.sleep(10000);
