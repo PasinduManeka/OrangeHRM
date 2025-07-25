@@ -2,9 +2,10 @@ package com.objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AdminObject {
+public class AdminObject extends DashboardObject{
 
     WebDriver driver;
     WebDriverWait wait;
@@ -20,6 +21,7 @@ public class AdminObject {
     By edit;
     
     public AdminObject(WebDriver driver, WebDriverWait wait){
+        super(driver,wait);
         this.driver = driver;
         this.wait = wait;
 
@@ -37,6 +39,46 @@ public class AdminObject {
         delete = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[1]");
         edit = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[2]");
     }
+
+    //clicks
+    public void clickAdminLBL(){
+        clickAdminLable();
+    }
+
+    public void clickUserRole(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
+    }
+
+    public void clickStatus(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
+    }
+
+    public void clickReset(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(reset)).click();
+    }
+
+    public void clickSearch(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(search)).click();
+    }
+
+    public void clickAdd(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(add)).click();
+    }
+
+    public void clickDelete(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(delete)).click();
+    }
+
+    public void clickEdit(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(edit)).click();
+    }
+
+    //setValues
+    public void setValues(String userName, String employeeName){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
+    }
+
 
 
 }
