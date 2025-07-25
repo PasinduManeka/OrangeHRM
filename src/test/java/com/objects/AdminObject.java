@@ -57,13 +57,13 @@ public class AdminObject extends DashboardObject{
         clickAdminLable();
     }
 
-    public void clickUserRole(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
-    }
+//    public void clickUserRole(){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
+//    }
 
-    public void clickStatus(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
-    }
+//    public void clickStatus(){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
+//    }
 
     public void clickReset(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(reset)).click();
@@ -86,9 +86,11 @@ public class AdminObject extends DashboardObject{
     }
 
     //setValues
-    public void setValues(String userName, String employeeName){
+    public void setValues(String userName, String employeeName, String userRole, String Status){
         wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).sendKeys(userRole);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(status)).sendKeys(Status);
     }
 
     //elements avilabilty

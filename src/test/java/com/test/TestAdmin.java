@@ -19,6 +19,7 @@ public class TestAdmin {
     private static WebDriverWait wait;
     private String url = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers";
 
+    //login
     private String username = "Admin";
     private String password = "admin123";
 
@@ -44,6 +45,12 @@ public class TestAdmin {
         admin.clickAdminLable();
         Thread.sleep(10000);
         Assert.assertTrue(admin.adminElementAvailable(),"Elements are not available");
+    }
+
+    //Search
+    @Test(priority =2)
+    public void testPositiveFilterResults(){
+        admin.setValues();
     }
 
 
