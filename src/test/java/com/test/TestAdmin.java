@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 
 public class TestAdmin {
 
@@ -24,7 +25,7 @@ public class TestAdmin {
     private String password = "admin123";
 
     //filter
-    private String Username ="115152";
+    private String Username = "Admin";
     private String UserRole ="Admin";
     private String EmployeeName = "Sobor Ali";
     private String Staus = "Disabled";
@@ -60,12 +61,38 @@ public class TestAdmin {
     }
 
     //Search
-    @Test(priority =3)
+    @Test(priority = 3)
+    public void testSearchFilterUsrName()throws InterruptedException{
+        admin.clickAdminLable();
+        Thread.sleep(1000);
+        admin.setValueUserName(Username);
+        Thread.sleep(1000);
+
+        admin.clickSearch();
+        Thread.sleep(10000);
+
+        List<List<String>> tableData = admin.getAllTable();
+        Thread.sleep(5000);
+
+        Assert.assertTrue(!tableData.isEmpty(),"Expected results could not found");
+    }
+
+    @Test(priority =4)
     public void testPositiveFilterResults() throws InterruptedException{
         admin.clickAdminLBL();
         Thread.sleep(10000);
         admin.setValues(Username,EmployeeName);
-        Thread.sleep(20000);
+        admin.clickUserRole();
+        admin.clickStatus();
+        Thread.sleep(1000);
+
+        admin.clickSearch();
+        Thread.sleep(100000);
+
+        List<List<String>> tableData = admin.getAllTable();
+        Thread.sleep(10000);
+
+        Assert.assertTrue(!tableData.isEmpty(),"Expected results could not found");
     }
 
 

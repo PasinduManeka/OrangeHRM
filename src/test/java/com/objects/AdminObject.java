@@ -48,7 +48,7 @@ public class AdminObject extends DashboardObject{
         add = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/button[1]");
         delete = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[1]");
         edit = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[6]/div[1]/button[2]");
-        tableRows = By.cssSelector("div.oxd-table-body > div.oxd-table-row");
+        tableRows = By.cssSelector("div.oxd-table-row");
         cellInRow = By.cssSelector("div.oxd-table-cell");
     }
 
@@ -85,6 +85,7 @@ public class AdminObject extends DashboardObject{
 
     public void clickStatus(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='listbox']//div[@role='option']//span[normalize-space()='Enabled']"))).click();
     }
 
     //direct to admin page
@@ -106,6 +107,14 @@ public class AdminObject extends DashboardObject{
     //setValues
     public void setValues(String userName, String employeeName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
+    }
+
+    public void setValueUserName(String userName){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
+    }
+
+    public void setValuePassword(String employeeName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
     }
 
@@ -147,14 +156,21 @@ public class AdminObject extends DashboardObject{
 
     public List<String> getRowData(WebElement row){
         List<WebElement> cells = row.findElements(cellInRow);
+//        System.out.println("tEST");
+        //System.out.println( cells.stream().map(e-> e.getText().trim()).collect(Collectors.toList()));
         return cells.stream().map(e-> e.getText().trim()).collect(Collectors.toList());
     }
 
     public List<List<String>> getAllTable(){
         List<List<String>> tableData = new ArrayList<>();
-        for(WebElement row:getTableRows()){
-            tableData.add(getRowData(row));
+        List<WebElement> rows  = getTableRows();
+        System.out.println("Row Size:"+rows.size());
+        for(WebElement row:rows){
+            List<String> rowData = getRowData(row);
+            //System.out.println("Row Data: "+rowData);
+            tableData.add(rowData);
         }
+        ;
         return tableData;
     }
 
