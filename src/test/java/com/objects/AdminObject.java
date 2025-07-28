@@ -118,7 +118,7 @@ public class AdminObject extends DashboardObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
     }
 
-    //elements avilabilty
+    //elements avilabilty 
     public boolean adminElementAvailable(){
         try{
             boolean userName = isElementAvailable(wait, username);
@@ -172,6 +172,16 @@ public class AdminObject extends DashboardObject{
         }
         ;
         return tableData;
+    }
+
+    public boolean notFoundMethaodVisible(){
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='No Records Found']")));
+            return true;
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
     }
 
     //Add form

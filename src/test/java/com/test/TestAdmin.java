@@ -6,10 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,10 +22,10 @@ public class TestAdmin {
     private String password = "admin123";
 
     //filter
-    private String Username = "Admin";
+    private String UserName = "Admin";
     private String UserRole ="Admin";
-    private String EmployeeName = "Sobor Ali";
-    private String Staus = "Disabled";
+    private String EmployeeName = "manda user";
+    private String Status = "Disabled";
 
     LoginObject login;
     AdminObject admin;
@@ -46,6 +43,17 @@ public class TestAdmin {
     public void loginToAdmin()throws InterruptedException{
         login.login(username,password);
     }
+
+//    @DataProvider(name = "SearchData")
+//    public Object[][] getSearchData(){
+//        return new Object[][]{
+//                {"Admin","Admin","Mand User", "Enabled"},
+//                {"Admin","","", ""},
+//                {"","Admin","", ""},
+//                {"","","Mand User", ""},
+//                {"","","", "Enabled"}
+//        };
+//    }
 
     @Test(priority = 1)
     public void testDirectPage()throws InterruptedException{
@@ -66,7 +74,8 @@ public class TestAdmin {
     public void testSearchFilterUsrName()throws InterruptedException{
         admin.clickAdminLable();
         Thread.sleep(1000);
-        admin.setValueUserName(Username);
+        admin.clickReset();
+//        admin.setValueUserName(Username);
         Thread.sleep(1000);
 
         admin.clickSearch();
@@ -82,6 +91,7 @@ public class TestAdmin {
     public void testSearchFilterUserRole()throws InterruptedException{
         admin.clickAdminLable();
         Thread.sleep(500);
+        admin.clickReset();
         admin.clickUserRole("ESS");
         Thread.sleep(500);
         admin.clickSearch();
@@ -98,6 +108,7 @@ public class TestAdmin {
     public void testSearchFilterStatus()throws InterruptedException{
         admin.clickAdminLable();
         Thread.sleep(1000);
+        admin.clickReset();
         admin.clickStatus("Enabled");
         Thread.sleep(1000);
 
@@ -110,10 +121,11 @@ public class TestAdmin {
         Assert.assertTrue(!tableData.isEmpty(),"No Values In Table.");
     }
 
-    @Test
+    @Test(priority = 6)
     public void testSearchFilterEmployeeName()throws InterruptedException{
         admin.clickAdminLable();
         Thread.sleep(1000);
+        admin.clickReset();
         admin.setValueEmployeeName("manda user");
         Thread.sleep(1000);
 
@@ -126,13 +138,16 @@ public class TestAdmin {
         Assert.assertTrue(!tableData.isEmpty(),"No values in table.");
     }
 
-    @Test(priority =6)
-    public void testPositiveFilterResults() throws InterruptedException{
+    @Test(priority =7)
+    public void testPositiveFilterResults()throws InterruptedException{
         admin.clickAdminLBL();
         Thread.sleep(10000);
-        admin.setValues(Username,EmployeeName);
-        admin.clickUserRole("Admin");
-        admin.clickStatus("Enabled");
+        admin.clickReset();
+//        admin.setValues(username,EmployeeName);
+        admin.setValueUserName(UserName);
+//        admin.setValueEmployeeName(EmployeeName);
+        admin.clickUserRole(UserRole);
+        admin.clickStatus(Status);
         Thread.sleep(1000);
 
         admin.clickSearch();
@@ -142,6 +157,26 @@ public class TestAdmin {
         Thread.sleep(10000);
 
         Assert.assertTrue(!tableData.isEmpty(),"Expected results could not found");
+
+//        System.out.println("Username:"+userName+"Role: "+role+"Employee Name"+employeeName+"Status: "+status);
+    }
+
+    @Test(priority = 8)
+    public void testNegativeFilterResult()throws InterruptedException{
+        admin.clickAdminLable();
+        admin.clickReset();
+        admin.setValueUserName(UserName);
+
+        admin.clickUserRole(UserRole);
+        admin.clickStatus("Enabled");
+        Thread.sleep(1000);
+
+        admin.clickSearch();
+        Thread.sleep(10000);
+
+        Assert.assertTrue(admin.notFoundMethaodVisible(),"Values are available");
+
+
     }
 
 
