@@ -78,14 +78,14 @@ public class AdminObject extends DashboardObject{
     }
 
     //select the dropdown menu elements
-    public void clickUserRole(){
+    public void clickUserRole(String UserRoleName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(userrole)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-option']//span[text()='Admin']"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-option']//span[text()='"+UserRoleName+"']"))).click();
     }
 
-    public void clickStatus(){
+    public void clickStatus(String statusName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(status)).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='listbox']//div[@role='option']//span[normalize-space()='Enabled']"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='listbox']//div[@role='option']//span[normalize-space()='"+statusName+"']"))).click();
     }
 
     //direct to admin page
@@ -114,7 +114,7 @@ public class AdminObject extends DashboardObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(userName);
     }
 
-    public void setValuePassword(String employeeName){
+    public void setValueEmployeeName(String employeeName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(employeename)).sendKeys(employeeName);
     }
 

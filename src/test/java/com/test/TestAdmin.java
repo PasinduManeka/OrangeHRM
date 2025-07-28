@@ -46,6 +46,7 @@ public class TestAdmin {
     public void loginToAdmin()throws InterruptedException{
         login.login(username,password);
     }
+
     @Test(priority = 1)
     public void testDirectPage()throws InterruptedException{
         admin.clickAdminLBL();
@@ -77,13 +78,61 @@ public class TestAdmin {
         Assert.assertTrue(!tableData.isEmpty(),"Expected results could not found");
     }
 
-    @Test(priority =4)
+    @Test(priority = 4)
+    public void testSearchFilterUserRole()throws InterruptedException{
+        admin.clickAdminLable();
+        Thread.sleep(500);
+        admin.clickUserRole("ESS");
+        Thread.sleep(500);
+        admin.clickSearch();
+        Thread.sleep(10000);
+
+        List<List<String>> tableData = admin.getAllTable();
+        Thread.sleep(5000);
+
+        Assert.assertTrue(!tableData.isEmpty(),"Expected results could not found");
+
+    }
+
+    @Test(priority = 5)
+    public void testSearchFilterStatus()throws InterruptedException{
+        admin.clickAdminLable();
+        Thread.sleep(1000);
+        admin.clickStatus("Enabled");
+        Thread.sleep(1000);
+
+        admin.clickSearch();
+        Thread.sleep(1000);
+
+        List<List<String>> tableData = admin.getAllTable();
+        Thread.sleep(10000);
+
+        Assert.assertTrue(!tableData.isEmpty(),"No Values In Table.");
+    }
+
+    @Test
+    public void testSearchFilterEmployeeName()throws InterruptedException{
+        admin.clickAdminLable();
+        Thread.sleep(1000);
+        admin.setValueEmployeeName("manda user");
+        Thread.sleep(1000);
+
+        admin.clickSearch();
+        Thread.sleep(1000);
+
+        List <List<String>> tableData = admin.getAllTable();
+        Thread.sleep(1000);
+
+        Assert.assertTrue(!tableData.isEmpty(),"No values in table.");
+    }
+
+    @Test(priority =6)
     public void testPositiveFilterResults() throws InterruptedException{
         admin.clickAdminLBL();
         Thread.sleep(10000);
         admin.setValues(Username,EmployeeName);
-        admin.clickUserRole();
-        admin.clickStatus();
+        admin.clickUserRole("Admin");
+        admin.clickStatus("Enabled");
         Thread.sleep(1000);
 
         admin.clickSearch();
