@@ -2,9 +2,12 @@ package com.test;
 
 import com.objects.AddUserObject;
 import com.objects.LoginObject;
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -38,15 +41,32 @@ public class TestAddUser {
     }
 
     @Test(priority=1)
+    public void testSuccessPageDirect()throws InterruptedException{
+        adduser.clickAdminLable();
+        adduser.clickAdd();
+        Thread.sleep(1000);
+
+        Assert.assertTrue(adduser.addFormOpen(), "Form is not open.");
+
+    } @Test(priority=2)
     public void testAddUserSuccessful()throws InterruptedException{
         adduser.clickAdminLable();
         adduser.clickAdd();
 
-
+        adduser.setValuesAddForm("","","","");
         adduser.selectUserRole("Admin");
         adduser.selectStatus("Enabled");
         Thread.sleep(1000);
 
     }
+
+    @AfterClass
+    public void tearDown(){
+        if(driver != null){
+            driver.quit();
+        }
+    }
+
+
 
 }
