@@ -184,19 +184,7 @@ public class AdminObject extends DashboardObject{
         }
     }
 
-    //Add form
-    public void addFormOpen(){
-        boolean uiDirect = false;
-        String expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
-        try{
-            String currentURL = driver.getCurrentUrl();
-            uiDirect=expectedURL.equals(currentURL);
-        }catch(Exception e){
-            System.out.println("Error: "+e);
-        }
-
-    }
 
 
 
