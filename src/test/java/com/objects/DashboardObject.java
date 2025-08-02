@@ -34,7 +34,7 @@ public class DashboardObject {
     public void initElelment(){
         sideBar = By.className("oxd-sidepanel");
         searchBox = By.className("oxd-main-menu-search");
-        admin = By.xpath("//span[normalize-space()='Admin']");
+        admin = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/aside[1]/nav[1]/div[2]/ul[1]/li[1]/a[1]");
         pim = By.xpath("//span[normalize-space()='PIM']");
         leave = By.xpath("//span[normalize-space()='Leave']");
         time = By.xpath("//span[normalize-space()='Time']");

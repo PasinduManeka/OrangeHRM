@@ -29,7 +29,7 @@ public class LoginObject {
     private void initElements(){
         userName = By.xpath("//input[@name='username']");
         pwd = By.xpath("//input[@name='password']");
-        submit = By.xpath("//button[normalize-space()='Login']");
+        submit = By.className("orangehrm-login-button");
         reqError = By.className("oxd-input-field-error-message");
         forgetPassword = By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-login-forgot-header']");
 
@@ -88,7 +88,7 @@ public class LoginObject {
         return uiDirect;
     }
 
-    //empty
+    //empty form
     public boolean emptyValidation(){
         try{
             wait.until(ExpectedConditions.visibilityOfElementLocated(reqError));

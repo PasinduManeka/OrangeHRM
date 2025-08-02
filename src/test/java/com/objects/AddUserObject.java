@@ -2,8 +2,11 @@ package com.objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class AddUserObject extends AdminObject{
     private static WebDriver driver;
@@ -32,12 +35,12 @@ public class AddUserObject extends AdminObject{
         UserRole = By.xpath("//body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]");
         Status = By.xpath("//body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/form[1]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]");
         employeeName = By.xpath("//input[@placeholder='Type for hints...']");
-        userName = By.xpath("//body/div[@id='app']/div[@class='oxd-layout orangehrm-upgrade-layout']/div[@class='oxd-layout-container']/div[@class='oxd-layout-context']/div[@class='orangehrm-background-container']/div[@class='orangehrm-card-container']/form[@class='oxd-form']/div[@class='oxd-form-row']/div[@class='oxd-grid-2 orangehrm-full-width-grid']/div[4]/div[1]/div[2]");
+        userName = By.xpath("//div[@class='oxd-form-row']//div[@class='oxd-grid-2 orangehrm-full-width-grid']//div[@class='oxd-grid-item oxd-grid-item--gutters']//div[@class='oxd-input-group oxd-input-field-bottom-space']//div//input[@class='oxd-input oxd-input--active']");
         password = By.xpath("//div[@class='oxd-grid-item oxd-grid-item--gutters user-password-cell']//div[@class='oxd-input-group oxd-input-field-bottom-space']//div//input[@type='password']");
         confirmPassword = By.xpath("//div[@class='oxd-grid-item oxd-grid-item--gutters']//div[@class='oxd-input-group oxd-input-field-bottom-space']//div//input[@type='password']");
         cancelButton = By.xpath("//body/div[@id='app']/div[@class='oxd-layout orangehrm-upgrade-layout']/div[@class='oxd-layout-container']/div[@class='oxd-layout-context']/div[@class='orangehrm-background-container']/div[@class='orangehrm-card-container']/form[@class='oxd-form']/div[@class='oxd-form-actions']/button[1]");
         saveButton = By.xpath("//button[@type='submit']");
-        errorReq = By.cssSelector("span.oxd-text.oxd-text--span.oxd-input-field-error-message.oxd-input-group__message:nth-child(3)");
+        errorReq = By.cssSelector("//body/div[@id='app']/div[@class='oxd-layout orangehrm-upgrade-layout']/div[@class='oxd-layout-container']/div[@class='oxd-layout-context']/div[@class='orangehrm-background-container']/div[@class='orangehrm-card-container']/form[@class='oxd-form']/div[@class='oxd-form-row']/div[@class='oxd-grid-2 orangehrm-full-width-grid']/div[1]/div[1]/span[1]");
     }
 
     //clicks
@@ -75,6 +78,10 @@ public class AddUserObject extends AdminObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPassword)).sendKeys(cPass);
     }
 
+//    public void setValueAddForm(String name){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPassword)).sendKeys(name);
+//    }
+
     //add form open
     public boolean addFormOpen(){
         boolean uiDirect = false;
@@ -89,6 +96,59 @@ public class AddUserObject extends AdminObject{
         return uiDirect;
     }
 
+    //elements availability
+    public boolean addFormElementAvailable(){
+        try{
+            boolean userrole = isElementAvailable(wait,UserRole);
+            boolean status = isElementAvailable(wait,Status);
+            boolean employeename = isElementAvailable(wait, employeeName);
+            boolean username = isElementAvailable(wait,userName);
+            boolean Password = isElementAvailable(wait, password);
+            boolean ConPass = isElementAvailable(wait,confirmPassword);
+            boolean cancelBtn = isElementAvailable(wait, cancelButton);
+            boolean saveBtn = isElementAvailable(wait,saveButton);
 
+
+//            return userrole && status && employeename && username && Password && ConPass;
+            return userrole && status && employeename && username && Password && ConPass && cancelBtn && saveBtn;
+        }catch (Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+    }
+
+    private boolean isElementAvailable(WebDriverWait wait, By locator){
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        }catch (Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+    }
+
+    //empty form
+    public boolean emptyValidation(){
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(errorReq));
+            List<WebElement> alertMsg = driver.findElements((errorReq));
+            List<String> alertTxts = alertMsg.stream()
+                    .map(WebElement::getText).filter(text -> !text.isBlank())
+                    .map(String::trim).toList();
+
+            long reqMsgCount = alertTxts.stream().filter(text-> ((String) text).equalsIgnoreCase("Required")).count();;
+
+//            long reqMsgCount = alertMsg.stream()
+//                    .filter((String text) -> text.equalsIgnoreCase("Required"))
+//                    .count();
+
+            System.out.println("Count:"+reqMsgCount);
+
+            return reqMsgCount==2;
+        }catch(Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+    }
 
 }

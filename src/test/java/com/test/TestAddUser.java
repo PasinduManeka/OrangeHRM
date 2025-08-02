@@ -48,15 +48,36 @@ public class TestAddUser {
 
         Assert.assertTrue(adduser.addFormOpen(), "Form is not open.");
 
-    } @Test(priority=2)
+    }
+
+    @Test(priority = 2)
+    public void testAdddUserElementAvailable()throws  InterruptedException{
+        adduser.clickAdminLable();
+        Thread.sleep(500);
+        adduser.clickAdd();
+        Thread.sleep(10000);
+        Assert.assertTrue(adduser.addFormElementAvailable(),"Elements are not available.");
+    }
+
+    public void testEmptyForm(){
+        adduser.clickAdminLBL();
+        adduser.clickAdd();
+
+
+    }
+
+    @Test(priority=3)
     public void testAddUserSuccessful()throws InterruptedException{
         adduser.clickAdminLable();
         adduser.clickAdd();
+        Thread.sleep(1000);
 
-        adduser.setValuesAddForm("","","","");
+        adduser.setValuesAddForm("Orange Test", "Orange", "Test@123", "Test@123");
+//        adduser.setValueAddForm("Test1");
+        Thread.sleep(10000);
         adduser.selectUserRole("Admin");
         adduser.selectStatus("Enabled");
-        Thread.sleep(1000);
+        Thread.sleep(10000);
 
     }
 
