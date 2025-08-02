@@ -59,14 +59,21 @@ public class TestAddUser {
         Assert.assertTrue(adduser.addFormElementAvailable(),"Elements are not available.");
     }
 
-    public void testEmptyForm(){
+    @Test(priority =3)
+    public void testEmptyForm()throws InterruptedException{
         adduser.clickAdminLBL();
         adduser.clickAdd();
+        Thread.sleep(1000);
+
+        adduser.clickSaveButton();
+        Thread.sleep(10000);
+
+        Assert.assertTrue(adduser.emptyValidation(),"Empaty validation error messages does not display.");
 
 
     }
 
-    @Test(priority=3)
+    @Test(priority=4)
     public void testAddUserSuccessful()throws InterruptedException{
         adduser.clickAdminLable();
         adduser.clickAdd();

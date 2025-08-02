@@ -105,7 +105,7 @@ public class LoginObject {
 
             System.out.println("Count:"+reqMsgCount);
 
-            return reqMsgCount==2;
+            return reqMsgCount == 2;
 
         }catch(Exception e){
             System.out.println("Error: "+e);

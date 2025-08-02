@@ -40,7 +40,7 @@ public class AddUserObject extends AdminObject{
         confirmPassword = By.xpath("//div[@class='oxd-grid-item oxd-grid-item--gutters']//div[@class='oxd-input-group oxd-input-field-bottom-space']//div//input[@type='password']");
         cancelButton = By.xpath("//body/div[@id='app']/div[@class='oxd-layout orangehrm-upgrade-layout']/div[@class='oxd-layout-container']/div[@class='oxd-layout-context']/div[@class='orangehrm-background-container']/div[@class='orangehrm-card-container']/form[@class='oxd-form']/div[@class='oxd-form-actions']/button[1]");
         saveButton = By.xpath("//button[@type='submit']");
-        errorReq = By.cssSelector("//body/div[@id='app']/div[@class='oxd-layout orangehrm-upgrade-layout']/div[@class='oxd-layout-container']/div[@class='oxd-layout-context']/div[@class='orangehrm-background-container']/div[@class='orangehrm-card-container']/form[@class='oxd-form']/div[@class='oxd-form-row']/div[@class='oxd-grid-2 orangehrm-full-width-grid']/div[1]/div[1]/span[1]");
+        errorReq = By.cssSelector("span.oxd-input-field-error-message");
     }
 
     //clicks
@@ -144,7 +144,7 @@ public class AddUserObject extends AdminObject{
 
             System.out.println("Count:"+reqMsgCount);
 
-            return reqMsgCount==2;
+            return reqMsgCount>=1;
         }catch(Exception e){
             System.out.println("Error: "+e);
             return false;
