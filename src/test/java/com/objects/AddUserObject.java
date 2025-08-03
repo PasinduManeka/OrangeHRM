@@ -70,9 +70,15 @@ public class AddUserObject extends AdminObject{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='option']//span[text()='"+status+"']"))).click();;
     }
 
+    public void selectEmployeeName(String input, String selectItem)throws InterruptedException{
+        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeName)).sendKeys(input);
+        Thread.sleep(1000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='option']//span[normalize-space(text())='"+selectItem+"']"))).click();
+    }
+
     //set values
-    public void setValuesAddForm(String empName, String uName, String pass, String cPass){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeName)).sendKeys(empName);
+    public void setValuesAddForm(String uName, String pass, String cPass){
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(employeeName)).sendKeys(empName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(userName)).sendKeys(uName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(password)).sendKeys(pass);
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPassword)).sendKeys(cPass);
@@ -142,13 +148,29 @@ public class AddUserObject extends AdminObject{
 //                    .filter((String text) -> text.equalsIgnoreCase("Required"))
 //                    .count();
 
-            System.out.println("Count:"+reqMsgCount);
+//            System.out.println("Count:"+reqMsgCount);
 
             return reqMsgCount>=1;
         }catch(Exception e){
             System.out.println("Error: "+e);
             return false;
         }
+    }
+
+    //already taken
+    public boolean alreadyTakenUserName(){
+        try {
+            String errorText = wait.until(ExpectedConditions.visibilityOfElementLocated(errorReq)).getText().trim();
+            String expectedElement = "Already exists";
+
+            System.out.println("Error Text: "+errorText);
+
+            return errorText.equals(expectedElement);
+        }catch (Exception e){
+            System.out.println("Error: "+e);
+            return false;
+        }
+
     }
 
 }
